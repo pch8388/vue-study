@@ -7,15 +7,14 @@ export default {
         console.log(tag, 'init()');
         FormView.setup(document.querySelector('form'))
             .on('@submit', e => this.onSubmit(e.detail.input))
-            .on('@reset', e => this.onReset(e.detail.inputEl));
+            .on('@reset', e => this.onResetForm());
     },
 
     onSubmit(input) {
         console.log(tag, 'onSubmit()', input);
     },
 
-    onReset(inputEl) {
-        inputEl.value = '';
-        inputEl.focus();
+    onResetForm() {
+        console.log(tag, 'onResetForm()')
     }
 }
