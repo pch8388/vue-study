@@ -1,7 +1,10 @@
 import FormView from '../views/FormView.js'
 import ResultView from '../views/ResultView.js'
+import TabView from '../views/TabView.js'
 
 import SearchModel from "../models/SearchModel.js";
+import KeywordModel from "../models/KeywordModel.js";
+import HistoryModel from "../models/HistoryModel.js";
 
 const tag = '[MainController]';
 
@@ -12,7 +15,20 @@ export default {
             .on('@submit', e => this.onSubmit(e.detail.input))
             .on('@reset', e => this.onResetForm());
 
+        TabView.setup(document.querySelector('#tabs'))
+            .on('@change', e => this.onChangeTab(e.detail.tabName));
+
         ResultView.setup(document.querySelector('#search-result'));
+
+        this.selectedTab = '추천 검색어';
+        this.renderView();
+
+    },
+
+    renderView() {
+        console.log(tag, 'renderView()');
+        TabView.setActiveTab(this.selectedTab);
+        ResultView.hide();
     },
 
     search(query) {
@@ -34,5 +50,17 @@ export default {
 
     onSearchResult(data) {
         ResultView.render(data);
+    },
+
+    onChangeTab(tagName) {
+        console.log(tag, 'onClick()', tagName);
+        const model = tagName === '추천 검색어' ? KeywordModel : HistoryModel;
+        model.list().then(data => {
+            this.onKeywordResult(data);
+        });
+    },
+
+    onKeywordResult(data) {
+        console.log(tag, 'onKeywordResult()', data);
     }
 }
