@@ -4,6 +4,10 @@ const tag = '[HistoryView]';
 
 const HistoryView = Object.create(KeywordView);
 
+HistoryView.message = {
+    NO_RESULT: '검색 이력이 없습니다'
+};
+
 HistoryView.getKeywordsHtml = function (data) {
     return data.reduce((html, item) => {
         html += `<li data-keyword="${item.keyword}">
@@ -13,6 +17,19 @@ HistoryView.getKeywordsHtml = function (data) {
         </li>`;
         return html;
     }, '<ul class="list">') + '</ul>';
+};
+
+HistoryView.bindRemoveEvent = function () {
+    [...this.el.querySelectorAll('button.btn-remove')].forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            this.onRemove(btn.parentElement.dataset.keyword)
+        });
+    });
+};
+
+HistoryView.onRemove = function (keyword) {
+    this.emit('@remove', {keyword});
 };
 
 export default HistoryView;

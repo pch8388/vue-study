@@ -15,8 +15,9 @@ KeywordView.setup = function (el) {
 };
 
 KeywordView.render = function (data = []) {
-    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : KeywordView.message.NO_RESULT;
+    this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : this.message.NO_RESULT;
     this.show();
+    return this;
 };
 
 KeywordView.getKeywordsHtml = function (data) {
