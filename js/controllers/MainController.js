@@ -29,7 +29,7 @@ export default {
 
         ResultView.setup(document.querySelector('#search-result'));
 
-        this.selectedTab = '최근 검색어';
+        this.selectedTab = '추천 검색어';
         this.renderView();
 
     },
@@ -64,6 +64,7 @@ export default {
     search(query) {
         console.log(tag, 'search()', query);
         FormView.setValue(query);
+        HistoryModel.add(query);
         SearchModel.list(query).then(data => {
             this.onSearchResult(data);
         });
@@ -86,12 +87,9 @@ export default {
         ResultView.render(data);
     },
 
-    onChangeTab(tagName) {
-        console.log(tag, 'onClick()', tagName);
-        const model = tagName === '추천 검색어' ? KeywordModel : HistoryModel;
-        model.list().then(data => {
-            this.onKeywordResult(data);
-        });
+    onChangeTab(tabName) {
+        this.selectedTab = tabName;
+        this.renderView();
     },
 
     onKeywordResult(data) {
