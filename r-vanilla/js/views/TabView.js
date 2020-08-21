@@ -11,12 +11,10 @@ TabView.setUp = function (el) {
 };
 
 TabView.setActiveTab = function (tabName) {
-    this.el.querySelectorAll('li')
-        .forEach(li => {
-            if (li.innerText === tabName) {
-                li.classList.add('active');
-            }
-        });
+    this.el.querySelectorAll('li').forEach(li => {
+        li.className = li.innerText === tabName ? 'active' : '';
+    });
+    this.show();
 };
 
 TabView.bindClickEvent = function () {
