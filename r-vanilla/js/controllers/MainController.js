@@ -1,5 +1,6 @@
 import FormView from "../views/FormView.js";
 import ResultView from "../views/ResultView.js";
+import TabView from "../views/TabView.js";
 
 import SearchModel from "../models/SearchModel.js";
 
@@ -12,6 +13,9 @@ export default {
             .on('@submit', e => this.onSubmit(e.detail.input))
             .on('@reset', e => this.onReset());
 
+        TabView.setUp(document.querySelector('#tabs'))
+            .on('@click', e => this.onClickTab(e.detail.tabName));
+
         ResultView.setUp(document.querySelector('#search-result'));
     },
     onSubmit(input) {
@@ -23,5 +27,8 @@ export default {
     onReset() {
         console.log(tag, 'onReset()');
         ResultView.hide();
+    },
+    onClickTab(tabName) {
+        console.log(tag, 'onClickTab(', tabName, ')');
     }
 }

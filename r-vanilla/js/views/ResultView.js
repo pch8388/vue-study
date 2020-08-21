@@ -10,6 +10,7 @@ ResultView.message = {
 
 ResultView.setUp = function (el) {
     this.init(el);
+    return this;
 };
 
 ResultView.render = function (data = []) {
