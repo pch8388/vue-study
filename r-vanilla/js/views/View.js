@@ -15,11 +15,11 @@ export default {
         return this;
     },
     hide() {
-        this.el.display = 'none';
+        this.el.style.display = 'none';
         return this;
     },
     show() {
-        this.el.display = '';
+        this.el.style.display = '';
         return this;
     }
 }
