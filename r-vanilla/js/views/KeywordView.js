@@ -13,6 +13,7 @@ KeywordView.setUp = function (el) {
 };
 
 KeywordView.render = function (data = []) {
+    this.show();
     this.el.innerHTML = data.length ?
         this.dataRender(data) : this.message.NO_RESULT;
 };
